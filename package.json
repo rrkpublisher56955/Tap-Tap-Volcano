@@ -1,0 +1,26 @@
+{
+  "name": "tap-tap-volcano",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tap Tap Volcano — a cinematic portrait climbing Web Lens built with PlayCanvas, Vite, TypeScript and Snap's Web Lens API.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "verify": "node tools/verify.mjs",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "pack": "node tools/pack.mjs",
+    "sourcecheck": "node tools/check-source.mjs",
+    "previewcheck": "node tools/check-preview.mjs"
+  },
+  "dependencies": {
+    "@snap/web-lens-api": "^0.1.2",
+    "playcanvas": "^2.23.1"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
+  }
+}

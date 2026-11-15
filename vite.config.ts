@@ -1,17 +1,7 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  base: './',
-  publicDir: 'public',
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-    sourcemap: false,
-    assetsInlineLimit: 4096,
-    cssCodeSplit: true,
-    target: 'es2022',
-  },
-  server: {
-    host: '0.0.0.0',
+  tanstackStart: {
+    server: { entry: "server" },
   },
 });

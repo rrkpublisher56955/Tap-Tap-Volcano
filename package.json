@@ -4,7 +4,7 @@
   "description": "Tap Tap Volcano — Build your way out as lava rises.",
   "private": true,
   "engines": {
-    "node": "20.x"
+    "node": ">=20.0.0"
   },
   "sideEffects": false,
   "type": "module",
@@ -90,5 +90,8 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^8.0.16"
+  },
+  "optionalDependencies": {
+    "lightningcss-win32-x64-msvc": "^1.33.0"
   }
 }

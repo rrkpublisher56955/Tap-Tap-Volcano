@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { pathToFileURL } from "node:url";
 
 const rootDir = process.cwd();
 const vercelOutputDir = path.join(rootDir, ".vercel", "output");
@@ -37,7 +38,7 @@ async function main() {
   );
   if (fs.existsSync(serverPath)) {
     try {
-      const fileUrl = "file:///" + serverPath.replace(/\\/g, "/");
+      const fileUrl = pathToFileURL(serverPath).href;
       const serverModule = await import(fileUrl);
       if (serverModule?.default?.fetch) {
         const req = new Request("http://localhost/");
@@ -79,5 +80,5 @@ async function main() {
 
 main().catch((err) => {
   console.error("Postbuild error:", err);
-  process.exit(0); // non-fatal to allow deployment
+  process.exit(0);
 });

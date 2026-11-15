@@ -87,7 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "The lava's rising. Build your way out. Tap to spawn platform blocks beneath your character in this frantic arcade climb.",
       },
-      { name: "author", content: "rrkpublisher56955" },
+      { name: "author", content: "Rahul Kumar" },
       { property: "og:title", content: "Tap Tap Volcano" },
       {
         property: "og:description",
@@ -131,6 +131,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );

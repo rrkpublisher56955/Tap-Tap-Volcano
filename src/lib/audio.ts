@@ -1,9 +1,13 @@
+// Tactile Web Audio Synthesizer designed following Apple Fluid Audio-Haptic principles
+// Zero external asset dependencies - instant, low-latency, and responsive
+
 class SoundEngine {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
   private volume: number = 0.7;
 
   constructor() {
+    // Lazy initialize on first interaction to comply with browser autoplay policies
     try {
       const savedMute = localStorage.getItem("ttv_audio_muted");
       if (savedMute !== null) {
@@ -37,7 +41,7 @@ class SoundEngine {
     try {
       localStorage.setItem("ttv_audio_muted", String(muted));
     } catch {
-      // ignore
+      /* ignore storage write error */
     }
   }
 
@@ -55,7 +59,7 @@ class SoundEngine {
     try {
       localStorage.setItem("ttv_audio_vol", String(this.volume));
     } catch {
-      // ignore
+      /* ignore storage write error */
     }
   }
 
@@ -63,6 +67,7 @@ class SoundEngine {
     return this.volume;
   }
 
+  // Apple-style subtle tactile mechanical tap when placing a platform
   public playPlacePlatform() {
     if (this.isMuted) return;
     this.initCtx();
@@ -72,6 +77,7 @@ class SoundEngine {
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
 
+    // Fast pitch sweep down from 340Hz to 110Hz (satisfying thud)
     osc.type = "sine";
     osc.frequency.setValueAtTime(320 + Math.random() * 40, t);
     osc.frequency.exponentialRampToValueAtTime(110, t + 0.06);
@@ -88,6 +94,7 @@ class SoundEngine {
     this.vibrate(12);
   }
 
+  // Jump feedback
   public playJump() {
     if (this.isMuted) return;
     this.initCtx();
@@ -111,6 +118,7 @@ class SoundEngine {
     osc.stop(t + 0.15);
   }
 
+  // Emerald Bounce Pad launch (harmonic spring chord)
   public playBounce() {
     if (this.isMuted) return;
     this.initCtx();
@@ -140,6 +148,7 @@ class SoundEngine {
     this.vibrate([20, 30, 20]);
   }
 
+  // Celestial double jump woosh
   public playDoubleJump() {
     if (this.isMuted) return;
     this.initCtx();
@@ -172,6 +181,7 @@ class SoundEngine {
     this.vibrate([15, 40]);
   }
 
+  // Frost Cryo Freeze sound (chime shimmer)
   public playFreeze() {
     if (this.isMuted) return;
     this.initCtx();
@@ -196,6 +206,7 @@ class SoundEngine {
     });
   }
 
+  // Platform crumbling crackle
   public playCrumble() {
     if (this.isMuted) return;
     this.initCtx();
@@ -228,6 +239,7 @@ class SoundEngine {
     noise.start(t);
   }
 
+  // Game over molten submersion (deep resonant gong & sizzling hiss)
   public playGameOver() {
     if (this.isMuted) return;
     this.initCtx();
@@ -253,6 +265,7 @@ class SoundEngine {
     this.vibrate([60, 40, 80]);
   }
 
+  // UI button click / toggle
   public playUiClick() {
     if (this.isMuted) return;
     this.initCtx();

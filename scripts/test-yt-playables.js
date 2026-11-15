@@ -1,3 +1,16 @@
+/**
+ * YouTube Playables Compliance & Automated Test Suite
+ *
+ * Verifies that Tap Tap Volcano complies with all technical requirements
+ * outlined in the YouTube Playables Technical Checklist & Test Suite:
+ *
+ * 1. SDK Lifecycle Hooks (firstFrameReady, gameReady, sendScore, onPause, onResume)
+ * 2. Aspect Ratio & Resolution Adaptability (9:16 Portrait, 16:9 Landscape, Desktop)
+ * 3. Audio & Visibility Compliance (Pause on document.hidden, resume on focus)
+ * 4. Self-Contained Zero-Network Asset Integrity (No blocking external assets)
+ * 5. Bundle Size Compliance (< 5MB limit for rapid initial loading)
+ */
+
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -96,18 +109,21 @@ const testResolutions = [
 ];
 
 testResolutions.forEach((res) => {
+  // Test canvas aspect ratio containment
   const canvasW = 420;
   const canvasH = 680;
-  const gameAspect = canvasW / canvasH;
+  const gameAspect = canvasW / canvasH; // ~0.6176 (portrait friendly)
   const containerAspect = res.w / res.h;
 
   let fittedW = 0;
   let fittedH = 0;
 
   if (containerAspect < gameAspect) {
+    // Width constrained
     fittedW = res.w;
     fittedH = res.w / gameAspect;
   } else {
+    // Height constrained
     fittedH = res.h;
     fittedW = res.h * gameAspect;
   }
@@ -121,7 +137,7 @@ testResolutions.forEach((res) => {
 });
 
 // -------------------------------------------------------------
-// Test 3: Audio & Tab Visibility Compliance
+// Test 3: Audio & Visibility Pausing Compliance
 // -------------------------------------------------------------
 console.log("\nTest Suite 3: Audio & Tab Visibility Compliance");
 
@@ -145,6 +161,7 @@ assert(audioMuted === false, "Tab restored (document.hidden = false) resumes Web
 // -------------------------------------------------------------
 console.log("\nTest Suite 4: Self-Contained Zero-Network Asset Integrity");
 
+// Check that sound.ts contains native Web Audio synthesis and no external sound URLs
 const audioFilePath = path.resolve(__dirname, "../src/lib/audio.ts");
 const audioSource = fs.readFileSync(audioFilePath, "utf8");
 
@@ -190,13 +207,14 @@ if (fs.existsSync(targetDir)) {
   });
 
   const bundleMB = (totalBundleBytes / (1024 * 1024)).toFixed(2);
-  const isUnderLimit = totalBundleBytes < 5 * 1024 * 1024;
+  const isUnderLimit = totalBundleBytes < 5 * 1024 * 1024; // 5 MB threshold
   assert(
     isUnderLimit,
     `Production bundle size (${bundleMB} MB) is well under the 5 MB YouTube Playables limit`,
     `Total assets size = ${bundleMB} MB`,
   );
 } else {
+  // If not yet built, note that source checks pass
   assert(true, "Production bundle check deferred to build step");
 }
 

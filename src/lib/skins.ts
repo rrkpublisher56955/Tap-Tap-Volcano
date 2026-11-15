@@ -67,7 +67,7 @@ export function getSelectedSkin(): CharacterSkin {
     const found = SKINS.find((s) => s.id === saved);
     if (found) return found;
   } catch {
-    // ignore
+    /* ignore storage read error */
   }
   return SKINS[0];
 }
@@ -77,7 +77,7 @@ export function setSelectedSkin(id: string): CharacterSkin {
   try {
     localStorage.setItem(SKIN_STORAGE_KEY, skin.id);
   } catch {
-    // ignore
+    /* ignore storage write error */
   }
   return skin;
 }

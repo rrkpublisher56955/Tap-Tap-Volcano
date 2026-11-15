@@ -10,7 +10,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && node scripts/postbuild.js",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "test:typesafe": "node --experimental-strip-types scripts/test-typesafe.js",

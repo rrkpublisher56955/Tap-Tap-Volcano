@@ -15,6 +15,7 @@
     "preview": "vite preview",
     "test:typesafe": "node --experimental-strip-types scripts/test-typesafe.js",
     "test:playables": "node scripts/test-yt-playables.js",
+    "deploy": "node scripts/deploy-gh-pages.js",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
